@@ -1,0 +1,18 @@
+{
+  "name": "Cyclic Voltammetry",
+  "description": "Sweep the potential linearly between two values and record the current response.",
+  "category": "BuiltIn",
+  "inputs": [
+    {"label": "Start Potential (mV)", "type": "float", "default": 0.0, "variable":"Vi"},
+    {"label": "End Potential (mV)", "type": "float", "default": 1.0, "variable":"Vf"},
+    {"label": "Scan Rate (mV/s)", "type": "float", "default": 0.1, "variable":"Vr"},
+    {"label": "Cycles", "type": "int", "default": 1, "variable":"C"},
+    {"label": "Delay(s)", "type": "float", "default": 1.0, "variable":"D"},
+    {"label": "Repeats", "type": "int", "default": 1, "variable":"R"}
+  ],
+  "output": [
+    {"label": "Potential(mV)", "type": "float", "variable":"Vout"},
+    {"label": "Current(A)", "type": "float", "variable":"Iout"}
+  ],
+  "process": "REPEAT(C){\n    FOR_RANGEV(Vi,Vf,Vr){\n        MEAN(R),\n        DELAY(D),\n        OUTPUT(Vout=V,Iout=I)\n    };\n    FOR_RANGEV(Vi,Vf,Vr){\n        MEAN(R),\n        DELAY(D),\n        OUTPUT(Vout=V,Iout=I)\n    }\n}"
+}
